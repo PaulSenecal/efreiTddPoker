@@ -29,9 +29,9 @@ void PokerTest::displayTestResult(const QString& testName, bool success)
 
     if (success) {
         m_passedTests++;
-        out << "  ✓ " << testName << "\n";
+        out << "  ✓ " << testName << " SUCCES\n";
     } else {
-        out << "  ✗ " << testName << " - eCHEC\n";
+        out << "  ✗ " << testName << " - ECHEC\n";
     }
 }
 

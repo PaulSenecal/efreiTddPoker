@@ -256,16 +256,21 @@ bool Evaluator::isTwoPair(const QVector<Card>& cards)
 
 bool Evaluator::isOnePair(const QVector<Card>& cards)
 {
+    // Comptage des occurrences des rangs
     QMap<int, int> countMap;
     for (const Card& card : cards) {
         int rank = static_cast<int>(card.getRank());
         countMap[rank]++;
     }
 
+    // Compter exactement une paire et pas plus
     int pairCount = 0;
     for (auto it = countMap.begin(); it != countMap.end(); ++it) {
         if (it.value() == 2) {
             pairCount++;
+        } else if (it.value() > 2) {
+            // Si une carte apparaît plus de 2 fois, ce n'est pas une seule paire
+            return false;
         }
     }
 
@@ -407,7 +412,10 @@ QVector<int> Evaluator::getThreeOfAKindTiebreakers(const QVector<Card>& cards)
     std::sort(kickers.begin(), kickers.end(), std::greater<int>());
 
     tiebreakers.append(threeOfAKindRank);
-    tiebreakers.append(kickers);
+    // Ajouter chaque kicker individuellement
+    for (int kicker : kickers) {
+        tiebreakers.append(kicker);
+    }
 
     return tiebreakers;
 }
@@ -437,7 +445,9 @@ QVector<int> Evaluator::getTwoPairTiebreakers(const QVector<Card>& cards)
     // Trier les paires par rang décroissant
     std::sort(pairs.begin(), pairs.end(), std::greater<int>());
 
-    tiebreakers.append(pairs);
+    for (int pair : pairs) {
+        tiebreakers.append(pair);
+    }
     tiebreakers.append(kicker);
 
     return tiebreakers;
@@ -548,6 +558,7 @@ Evaluator::HandScore Evaluator::evaluate(const Hand& hand)
 
 int Evaluator::compareHands(const Hand& hand1, const Hand& hand2)
 {
+    // qDebug() << "Hand1: " << static_cast<int>(score1.type) << ", Hand2: " << static_cast<int>(score2.type);
     HandScore score1 = evaluate(hand1);
     HandScore score2 = evaluate(hand2);
 
