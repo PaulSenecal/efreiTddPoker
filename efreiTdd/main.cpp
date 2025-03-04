@@ -5,6 +5,7 @@
 #include "hand.h"
 #include "evaluator.h"
 #include "game.h"
+#include "test/poker_test.h"
 
 void displayHelp() {
     QTextStream out(stdout);
@@ -25,6 +26,12 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     QTextStream in(stdin);
     QTextStream out(stdout);
+
+    // Exécuter les tests
+    bool testsOk = PokerTest::runTests();
+    if (!testsOk) {
+        out << "Attention: Certains tests ont échoué!\n\n";
+    }
 
     displayHelp();
 

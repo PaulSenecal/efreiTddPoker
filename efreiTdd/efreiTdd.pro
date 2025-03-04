@@ -15,6 +15,7 @@ SOURCES += \
         test/test_card.cpp \
         test/test_evaluator.cpp \
         test/test_game.cpp \
+        test/poker_test.cpp \
         test/test_hand.cpp
 
 # Default rules for deployment.
@@ -26,4 +27,5 @@ HEADERS += \
     evaluator.h \
     game.h \
     hand.h \
+    test/poker_test.h \
     card.h

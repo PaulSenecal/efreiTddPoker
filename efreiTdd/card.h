@@ -22,8 +22,8 @@ public:
         Nine,
         Ten,
         Jack,       // Valet
-        Queen,      // Dame
-        King,       // Roi
+        Queen,
+        King,
         Ace         // As
     };
 
