@@ -8,6 +8,10 @@
 #include "test/poker_test.h"
 
 void displayHelp() {
+    #ifdef Q_OS_WIN
+    system("chcp 65001"); // Définir l'encodage de la console Windows en UTF-8
+    #endif
+
     QTextStream out(stdout);
     out << "Poker Evaluator - Comparez deux mains de poker\n";
     out << "Utilisation: Entrez deux mains de poker séparées par '|'\n";
