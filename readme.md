@@ -32,8 +32,7 @@ Les combinaisons, du plus fort au plus faible, sont :
 
 ```
 poker-tdd/
-├── CMakeLists.txt
-├── poker_tdd.pro
+├── efreiTdd.pro
 ├── src/
 │   ├── card.h / card.cpp         # Classe représentant une carte
 │   ├── hand.h / hand.cpp         # Classe représentant une main de 5 cartes
@@ -52,7 +51,7 @@ poker-tdd/
 ```bash
 mkdir build
 cd build
-qmake ../poker_tdd.pro
+qmake ../efreiTdd.pro
 make
 ```
 
@@ -70,7 +69,7 @@ make
 Une fois compilé, exécutez le programme :
 
 ```bash
-./poker_tdd
+./efreiTdd
 ```
 
 Pour comparer deux mains, entrez-les séparées par un `|` :
@@ -111,7 +110,7 @@ make check
 Pour exécuter les tests intégrés :
 
 ```bash
-./poker_tdd --test
+./efreiTdd --test
 ```
 
 ## Exemples
