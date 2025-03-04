@@ -1,4 +1,4 @@
-QT = core
+QT = core testlib
 
 CONFIG += c++17 cmdline
 
@@ -8,6 +8,7 @@ CONFIG += c++17 cmdline
 
 SOURCES += \
         evaluator.cpp \
+        card.cpp \
         game.cpp \
         hand.cpp \
         main.cpp \
@@ -24,4 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     evaluator.h \
     game.h \
-    hand.h
+    hand.h \
+    card.h
