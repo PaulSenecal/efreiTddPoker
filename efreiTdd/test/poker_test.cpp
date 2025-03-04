@@ -307,6 +307,6 @@ void PokerTest::testEdgeCases()
     Hand twoPairTwosAndKings = Hand::fromString("2S 2H KS KH QC");
 
     success = (Evaluator::compareHands(fourOfAKindTwos, twoPairTwosAndKings) > 0);
-    displayTestResult("Carré de 2 vs Deux paires 2 et Rois", success);
+    displayTestResult("Carre de 2 vs Deux paires 2 et Rois", success);
     QVERIFY(success);
 }

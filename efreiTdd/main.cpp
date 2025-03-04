@@ -101,5 +101,5 @@ int main(int argc, char *argv[])
     out << "Au revoir!\n";
 
    PokerTest tester;
-   return QTest::qExec(&tester);
+   return QTest::qExec(&tester); // jajouter au cas ou la personne oublie d'entre "test"
 }

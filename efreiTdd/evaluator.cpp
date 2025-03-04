@@ -4,7 +4,9 @@
 
 bool Evaluator::HandScore::operator<(const HandScore& other) const
 {
+    // Comparer d'abord les types de mains
     if (type != other.type) {
+        // Cast en int pour comparer les valeurs d'enum (HighCard = 0, RoyalFlush = 9)
         return static_cast<int>(type) < static_cast<int>(other.type);
     }
 
@@ -17,6 +19,7 @@ bool Evaluator::HandScore::operator<(const HandScore& other) const
 
     return false; // Égalité parfaite
 }
+
 
 bool Evaluator::HandScore::operator>(const HandScore& other) const
 {
@@ -99,13 +102,14 @@ bool Evaluator::isLowStraight(const QVector<Card>& sortedCards)
         return false;
     }
 
-    // Pour une quinte basse (A,2,3,4,5), l'As est considéré comme la carte la plus basse
+    // Pour une quinte basse (A,2,3,4,5), on vérifie:
     return static_cast<int>(sortedCards[0].getRank()) == static_cast<int>(Card::Rank::Ace) &&
            static_cast<int>(sortedCards[1].getRank()) == static_cast<int>(Card::Rank::Five) &&
            static_cast<int>(sortedCards[2].getRank()) == static_cast<int>(Card::Rank::Four) &&
            static_cast<int>(sortedCards[3].getRank()) == static_cast<int>(Card::Rank::Three) &&
            static_cast<int>(sortedCards[4].getRank()) == static_cast<int>(Card::Rank::Two);
 }
+
 
 QVector<int> Evaluator::getRankCounts(const QVector<Card>& cards)
 {
@@ -159,9 +163,10 @@ bool Evaluator::isRoyalFlush(const QVector<Card>& cards)
 
 bool Evaluator::isStraightFlush(const QVector<Card>& cards)
 {
-    return allSameSuit(cards) && isSequential(cards);
+    // Une quinte flush est une main qui forme à la fois une quinte et une couleur,
+    // mais qui n'est pas une quinte flush royale
+    return allSameSuit(cards) && isSequential(cards) && !isRoyalFlush(cards);
 }
-
 bool Evaluator::isFourOfAKind(const QVector<Card>& cards)
 {
     QVector<int> rankCounts = getRankCounts(cards);
@@ -364,10 +369,12 @@ QVector<int> Evaluator::getStraightTiebreakers(const QVector<Card>& cards)
     QVector<Card> sorted = sortByRank(cards);
     QVector<int> tiebreakers;
 
-    // Si c'est une quinte basse (A,2,3,4,5)
+    // Si c'est une quinte basse (A,2,3,4,5), la carte haute est le 5, pas l'As
     if (isLowStraight(sorted)) {
+        // Valeur 5 comme carte haute (considérant que l'As est utilisé comme carte basse)
         tiebreakers.append(static_cast<int>(Card::Rank::Five));
     } else {
+        // Sinon la carte haute est la première carte triée
         tiebreakers.append(static_cast<int>(sorted[0].getRank()));
     }
 
@@ -462,11 +469,12 @@ QVector<int> Evaluator::getOnePairTiebreakers(const QVector<Card>& cards)
     std::sort(kickers.begin(), kickers.end(), std::greater<int>());
 
     tiebreakers.append(pairRank);
-    tiebreakers.append(kickers);
+    for (int kicker : kickers) {
+        tiebreakers.append(kicker);
+    }
 
     return tiebreakers;
 }
-
 QVector<int> Evaluator::getHighCardTiebreakers(const QVector<Card>& cards)
 {
     QVector<Card> sorted = sortByRank(cards);
@@ -479,6 +487,7 @@ QVector<int> Evaluator::getHighCardTiebreakers(const QVector<Card>& cards)
 
     return tiebreakers;
 }
+
 
 Evaluator::HandScore Evaluator::evaluate(const Hand& hand)
 {
