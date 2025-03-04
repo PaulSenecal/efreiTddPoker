@@ -31,7 +31,7 @@ void PokerTest::displayTestResult(const QString& testName, bool success)
         m_passedTests++;
         out << "  ✓ " << testName << "\n";
     } else {
-        out << "  ✗ " << testName << " - ÉCHEC\n";
+        out << "  ✗ " << testName << " - eCHEC\n";
     }
 }
 
@@ -212,7 +212,7 @@ void PokerTest::testLosingHands()
 void PokerTest::testTieHands()
 {
     QTextStream out(stdout);
-    out << "\nTest des mains à égalité:\n";
+    out << "\nTest des mains à egalite:\n";
     bool success;
 
     // Test 1: Deux Quinte Flush Royale (égalité parfaite)
