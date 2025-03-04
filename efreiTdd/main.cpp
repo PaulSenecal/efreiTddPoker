@@ -16,8 +16,7 @@ void displayHelp() {
     out << "\n";
     out << "Notations des cartes:\n";
     out << "  - Rangs: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A\n";
-    out << "  - Couleurs: H (Hearts/Cœurs), D (Diamonds/Carreaux), C (Clubs/Trefles), S (Spades/Piques)\n";
-    out << "  ou ♥ (Cœurs), ♦ (Carreaux), ♣ (Trèfles), ♠ (Piques)\n";
+    out << "  - Couleurs: H (Hearts/Coeurs), D (Diamonds/Carreaux), C (Clubs/Trefles), S (Spades/Piques)\n";
     out << "\nTapez 'exit' pour quitter.\n";
     out << "Options speciales:\n";
     out << "  'test' - Executer les tests integres\n";
@@ -49,7 +48,7 @@ int main(int argc, char *argv[])
     displayHelp();
 
     while (true) {
-        out << "\nEntrez les mains à comparer (ou 'exit' pour quitter, 'test' pour lancer les tests): ";
+        out << "\nEntrez les mains a comparer (ou 'exit' pour quitter, 'test' pour lancer les tests): ";
         out.flush();
 
         QString input = in.readLine().trimmed();
