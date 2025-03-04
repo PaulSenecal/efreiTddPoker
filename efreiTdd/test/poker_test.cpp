@@ -16,7 +16,7 @@ bool PokerTest::runAllTests()
     QTest::qExec(this, QStringList() << "" << "-silent");
 
     // Affichage du résultat final
-    out << "\nRésumé: " << m_passedTests << "/" << m_totalTests << " tests réussis";
+    out << "\nResume: " << m_passedTests << "/" << m_totalTests << " tests reussis";
     out << " (" << (m_passedTests * 100 / m_totalTests) << "%)\n";
 
     return (m_passedTests == m_totalTests);
@@ -212,7 +212,7 @@ void PokerTest::testLosingHands()
 void PokerTest::testTieHands()
 {
     QTextStream out(stdout);
-    out << "\nTest des mains à egalite:\n";
+    out << "\nTest des mains a egalite:\n";
     bool success;
 
     // Test 1: Deux Quinte Flush Royale (égalité parfaite)
@@ -220,7 +220,7 @@ void PokerTest::testTieHands()
     Hand royalFlushSpades = Hand::fromString("AS KS QS JS TS");
 
     success = (Evaluator::compareHands(royalFlushHearts, royalFlushSpades) == 0);
-    displayTestResult("Quinte Flush Royale cœur = Quinte Flush Royale pique", success);
+    displayTestResult("Quinte Flush Royale coeur = Quinte Flush Royale pique", success);
     QVERIFY(success);
 
     // Test 2: Deux Quinte Flush identiques
@@ -228,7 +228,7 @@ void PokerTest::testTieHands()
     Hand straightFlushSpades = Hand::fromString("9S 8S 7S 6S 5S");
 
     success = (Evaluator::compareHands(straightFlushHearts, straightFlushSpades) == 0);
-    displayTestResult("Quinte Flush 9 cœur = Quinte Flush 9 pique", success);
+    displayTestResult("Quinte Flush 9 coeur = Quinte Flush 9 pique", success);
     QVERIFY(success);
 
     // Test 3: Deux carrés identiques
@@ -236,7 +236,7 @@ void PokerTest::testTieHands()
     Hand fourAcesDiamonds = Hand::fromString("AS AH AC AD KH");
 
     success = (Evaluator::compareHands(fourAcesHearts, fourAcesDiamonds) == 0);
-    displayTestResult("Carré d'As (kicker roi pique) = Carré d'As (kicker roi cœur)", success);
+    displayTestResult("Carré d'As (kicker roi pique) = Carré d'As (kicker roi coeur)", success);
     QVERIFY(success);
 
     // Test 4: Deux Full identiques

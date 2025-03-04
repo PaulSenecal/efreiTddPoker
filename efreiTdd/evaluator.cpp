@@ -1,7 +1,8 @@
 #include "evaluator.h"
 #include <algorithm>
 #include <QMap>
-
+/*to do changer la logique sur les carte haute car gaggne sur la pair actuellement*/
+/* Quinte basse (12345) vs Quinte haute ( 10 11 12 13 14 ) - nest pas bonne*/
 bool Evaluator::HandScore::operator<(const HandScore& other) const
 {
     // Comparer d'abord les types de mains
