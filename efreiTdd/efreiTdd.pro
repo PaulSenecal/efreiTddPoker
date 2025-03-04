@@ -12,11 +12,7 @@ SOURCES += \
         game.cpp \
         hand.cpp \
         main.cpp \
-        test/test_card.cpp \
-        test/test_evaluator.cpp \
-        test/test_game.cpp \
-        test/poker_test.cpp \
-        test/test_hand.cpp
+        test/poker_test.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

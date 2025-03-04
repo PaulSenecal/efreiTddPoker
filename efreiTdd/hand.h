@@ -9,7 +9,6 @@ class Hand {
 public:
     static constexpr int HAND_SIZE = 5;  // Définition unique ici
 
-    // Constructeur par défaut
     Hand();
 
     // Constructeur à partir d'une liste de cartes

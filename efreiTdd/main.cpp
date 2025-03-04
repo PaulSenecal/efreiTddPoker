@@ -1,28 +1,26 @@
 #include <QCoreApplication>
 #include <QTextStream>
 #include <QString>
-#include "card.h"
+#include <QCommandLineParser>
 #include "hand.h"
 #include "evaluator.h"
 #include "game.h"
 #include "test/poker_test.h"
 
 void displayHelp() {
-    #ifdef Q_OS_WIN
-    system("chcp 65001"); // Définir l'encodage de la console Windows en UTF-8
-    #endif
-
     QTextStream out(stdout);
     out << "Poker Evaluator - Comparez deux mains de poker\n";
-    out << "Utilisation: Entrez deux mains de poker séparées par '|'\n";
+    out << "Utilisation: Entrez deux mains de poker separees par '|'\n";
     out << "Format: [carte1] [carte2] [carte3] [carte4] [carte5] | [carte1] [carte2] [carte3] [carte4] [carte5]\n";
     out << "Exemple: AH KH QH JH 10H | 9S 8S 7S 6S 5S\n";
     out << "\n";
     out << "Notations des cartes:\n";
     out << "  - Rangs: 2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A\n";
-    out << "  - Couleurs: H (Hearts/Cœurs), D (Diamonds/Carreaux), C (Clubs/Trèfles), S (Spades/Piques)\n";
+    out << "  - Couleurs: H (Hearts/Cœurs), D (Diamonds/Carreaux), C (Clubs/Trefles), S (Spades/Piques)\n";
     out << "  ou ♥ (Cœurs), ♦ (Carreaux), ♣ (Trèfles), ♠ (Piques)\n";
     out << "\nTapez 'exit' pour quitter.\n";
+    out << "Options speciales:\n";
+    out << "  'test' - Executer les tests integres\n";
 }
 
 int main(int argc, char *argv[])
@@ -31,22 +29,38 @@ int main(int argc, char *argv[])
     QTextStream in(stdin);
     QTextStream out(stdout);
 
-    // Exécuter les tests
-    bool testsOk = PokerTest::runTests();
-    if (!testsOk) {
-        out << "Attention: Certains tests ont échoué!\n\n";
-    }
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Poker Hand Evaluator - Compare deux mains de poker");
+    parser.addHelpOption();
 
+    QCommandLineOption runTestsOption(QStringList() << "t" << "test", "Executer les tests integres");
+    parser.addOption(runTestsOption);
+
+    // Analyse des options
+    parser.process(app);
+
+    /*
+    if (parser.isSet(runTestsOption)) {
+        PokerTest tester;
+        return QTest::qExec(&tester);
+    }*/
+
+    // Mode normal d'évaluation des mains
     displayHelp();
 
     while (true) {
-        out << "\nEntrez les mains à comparer (ou 'exit' pour quitter): ";
+        out << "\nEntrez les mains à comparer (ou 'exit' pour quitter, 'test' pour lancer les tests): ";
         out.flush();
 
         QString input = in.readLine().trimmed();
 
         if (input.toLower() == "exit" || input.toLower() == "quit") {
             break;
+        } else if (input.toLower() == "test") {
+            // Exécuter les tests
+            PokerTest tester;
+            tester.runAllTests();
+            continue;
         }
 
         try {
@@ -85,5 +99,7 @@ int main(int argc, char *argv[])
     }
 
     out << "Au revoir!\n";
-    return 0;
+
+   PokerTest tester;
+   return QTest::qExec(&tester);
 }

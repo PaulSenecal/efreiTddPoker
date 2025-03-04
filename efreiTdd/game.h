@@ -16,7 +16,6 @@ public:
         QString description; // Description textuelle du résultat
     };
 
-    // Constructeur par défaut
     Game();
 
     // Définir les mains des joueurs

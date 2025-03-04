@@ -3,17 +3,34 @@
 
 #include "../hand.h"
 #include "../evaluator.h"
-#include <QString>
+#include <QtTest>
+#include "card.h"
+#include "game.h"
 
-class PokerTest {
+class PokerTest : public QObject
+{
+    Q_OBJECT
+
 public:
-    static bool runTests();
+    PokerTest(QObject *parent = nullptr);
+
+    // Méthode pour exécuter tous les tests et retourner le résultat
+    bool runAllTests();
+
+private slots:
+    // Tests automatiques (exécutés par QTest)
+    void testWinningHands();
+    void testLosingHands();
+    void testTieHands();
+    void testEdgeCases();
 
 private:
-    static bool testWinningHands();
-    static bool testLosingHands();
-    static void displayTestResult(const QString& testName, bool success);
-    static QString getHandDescription(const Hand& hand);
+    // Méthode d'affichage
+    void displayTestResult(const QString& testName, bool success);
+
+    // Variables pour le suivi des tests
+    int m_totalTests;
+    int m_passedTests;
 };
 
 #endif // POKER_TEST_H 
